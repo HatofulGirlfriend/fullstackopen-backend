@@ -1,6 +1,7 @@
 const { application } = require("express")
 const express = require("express")
 var morgan = require("morgan")
+const cors = require("cors")
 const app = express()
 
 morgan.token('personBody', (req) => console.log(req.body))
@@ -8,6 +9,7 @@ morgan.token('personBody', (req) => console.log(req.body))
 app.use(express.json())
 app.use(morgan(":method :url :status :res[content-length] - :response-time ms"))
 app.use(morgan(":personBody"))
+app.use(cors())
 
 let persons = [
     {
