@@ -20,6 +20,15 @@ POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
+    "name": "Bernie Sanders"
+}
+
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
     "name": "Martina Brillante",
     "number": "777-222"
 }

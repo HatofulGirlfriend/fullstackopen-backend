@@ -43,11 +43,12 @@ let persons = [
 ]
 
 app.get('/api/persons/:id', (request, response) => {
-  const id = Number(request.params.id)
-  const person = persons.find(p =>  p.id === id)
-
-  if (person) {
+  Person.findById(request.params.id).then(person => {
     response.json(person)
+  })
+
+  if (Person) {
+    response.json(Person)
   } else {
     response.status(404).end()
   }
@@ -72,42 +73,23 @@ app.delete("/api/persons/:id", (request, response) => {
   response.status(204).end()
 })
 
-const generateId = () => {
-  const maxId = persons.length > 0
-    ? Math.floor(Math.random(...persons.map(p => p.id)) * 400)
-    : 0
-  return maxId
-}
 
 app.post("/api/persons", (request, response) => {
   const body = request.body
 
-  if (!body.name || !body.number) {
-    return response.status(400).json({
-      error: "name and number must be filled"
-    })
+  if (body.name === undefined || body.number === undefined) {
+    return response.status(400).json({ error: "name & number must be filled"})
   }
 
-  if (persons.find(p => p.name === body.name)) {
-    console.log("hello")
-    return response.status(400).json({
-      error: "please enter a unique name"
-    })
-
-  }
-
-  const person = {
+  const person = new Person({
     name: body.name,
     number: body.number,
-    id: generateId(),
-  }
-
-  persons = persons.concat(person)
-
-  response.json(person)
+  })
+  
+  person.save().then(savedPerson => {
+    response.json(savedPerson)
+  })
 })
-
-
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
