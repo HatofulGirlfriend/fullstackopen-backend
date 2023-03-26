@@ -70,6 +70,13 @@ const App = () => {
               setMessage(null)
             }, 2000)
         })
+        .catch(error => {
+          console.log(error.response.data.error)
+          setErrorMessage(error.response.data.error)
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 2000)
+        })
     }
     setNewName("");
     setNewNumber("");
