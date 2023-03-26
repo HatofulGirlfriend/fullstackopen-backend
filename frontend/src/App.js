@@ -111,7 +111,6 @@ const App = () => {
     }
   }
 
-console.log(persons)
   return (
 
     <div>
