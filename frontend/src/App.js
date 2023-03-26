@@ -105,12 +105,13 @@ const App = () => {
       personService
         .remove(idToDelete)
         .then(() => {
+          setPersons(persons.filter(p => p.id !== idToDelete))
           setSelected(persons.filter(p => p.id !== idToDelete))
         })
     }
   }
 
-
+console.log(persons)
   return (
 
     <div>
