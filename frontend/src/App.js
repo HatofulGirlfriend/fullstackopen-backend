@@ -39,6 +39,7 @@ const App = () => {
         personService
           .update(updatedObject.id, updatedObject)
           .then(() =>{
+            setPersons(persons.filter(p => p.id !== updatedObject.id).concat(updatedObject))
             setSelected(persons.filter(p => p.id !== updatedObject.id).concat(updatedObject))
             setMessage(`${updatedObject.name} has been updated`)
             setTimeout(() => {
@@ -68,14 +69,13 @@ const App = () => {
           setMessage(`${returnedPerson.name} has been added`)
             setTimeout(() => {
               setMessage(null)
-            }, 2000)
+            }, 4000)
         })
         .catch(error => {
-          console.log(error.response.data.error)
           setErrorMessage(error.response.data.error)
             setTimeout(() => {
               setErrorMessage(null)
-            }, 2000)
+            }, 5000)
         })
     }
     setNewName("");
